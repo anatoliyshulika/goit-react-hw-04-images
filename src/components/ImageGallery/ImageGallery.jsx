@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Gallery } from './ImageGallery.styled';
 
-export default function ImageGallery({ imgList, onClick }) {
+export default function ImageGallery({ imgList }) {
   return (
-    <Gallery onClick={onClick}>
+    <Gallery>
       {imgList.map(({ webformatURL, largeImageURL, tags, id }) => (
         <ImageGalleryItem
           key={id}
@@ -19,5 +19,4 @@ export default function ImageGallery({ imgList, onClick }) {
 
 ImageGallery.propTypes = {
   imgList: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
 };

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'components/Modal/Modal';
 import { GalleryItem, GalleryItemImage } from './ImageGalleryItem.styled';
 
 export default function ImageGalleryItem({
@@ -6,14 +8,25 @@ export default function ImageGalleryItem({
   largeImageURL,
   tags,
 }) {
+  const [isModalShown, setIsModalShown] = useState(false);
+
   return (
-    <GalleryItem>
-      <GalleryItemImage
-        src={webformatURL}
-        alt={tags}
-        data-url={largeImageURL}
-      />
-    </GalleryItem>
+    <>
+      <GalleryItem>
+        <GalleryItemImage
+          onClick={() => setIsModalShown(true)}
+          src={webformatURL}
+          alt={tags}
+        />
+      </GalleryItem>
+      {isModalShown && (
+        <Modal
+          url={largeImageURL}
+          tag={tags}
+          onClose={() => setIsModalShown(false)}
+        />
+      )}
+    </>
   );
 }
 

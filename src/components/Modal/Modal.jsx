@@ -1,42 +1,39 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, ModalWindow } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
+export default function Modal({ onClose, url, tag }) {
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
 
-  handleKeyDown = e => {
+  function handleKeyDown(e) {
     if (e.code === 'Escape') {
-      this.props.onClose();
+      onClose();
     }
-  };
-
-  handleBackDropClick = e => {
-    if (e.target === e.currentTarget) {
-      this.props.onClose();
-    }
-  };
-
-  render() {
-    const { url, tag } = this.props;
-    return createPortal(
-      <Overlay onClick={this.handleBackDropClick}>
-        <ModalWindow>
-          <img src={url} alt={tag} />
-        </ModalWindow>
-      </Overlay>,
-      modalRoot
-    );
   }
+
+  function handleBackDropClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
+  return createPortal(
+    <Overlay onClick={handleBackDropClick}>
+      <ModalWindow>
+        <img src={url} alt={tag} />
+      </ModalWindow>
+    </Overlay>,
+    modalRoot
+  );
 }
 
 Modal.propTypes = {
