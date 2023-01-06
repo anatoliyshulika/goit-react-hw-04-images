@@ -18,11 +18,11 @@ export default function App() {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const totalPages = useRef(0);
-  const FirstLoadRef = useRef(0);
+  const isFirstLoadRef = useRef(true);
 
   useEffect(() => {
-    if (FirstLoadRef.current < 2) {
-      FirstLoadRef.current += 1;
+    if (isFirstLoadRef.current) {
+      isFirstLoadRef.current = false;
       return;
     }
 
