@@ -48,6 +48,7 @@ export default function App() {
     setSearchValue(values.search);
     setImgList([]);
     setPage(1);
+    totalPages.current = 0;
   }
 
   function getNextPage() {
@@ -58,9 +59,9 @@ export default function App() {
     <Container>
       <Searchbar onSubmit={handleSubmit} />
       {imgList.length > 0 && <ImageGallery imgList={imgList} />}
-      {totalPages.current > 1 &&
-        totalPages.current > page &&
-        status === 'resolved' && <Button handleClick={getNextPage} />}
+      {totalPages.current > 1 && totalPages.current > page && (
+        <Button handleClick={getNextPage} />
+      )}
       {status === 'pending' && <Loader />}
       {status === 'rejected' && (
         <>
