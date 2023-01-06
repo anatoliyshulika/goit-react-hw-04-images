@@ -48,6 +48,7 @@ export default function App() {
     setSearchValue(values.search);
     setImgList([]);
     setPage(1);
+    totalPages.current = 0;
   }
 
   function getNextPage() {
